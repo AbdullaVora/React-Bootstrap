@@ -45,13 +45,14 @@ const MyForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setData((prevData) => {
-      let newData = [...prevData, input]
-      localStorage.setItem('data', JSON.stringify(newData));
-      return newData;
-    })
-  }
+    let existingData = JSON.parse(localStorage.getItem('data')) || [];
+    let newData = [...existingData, input];
+    setData(newData);
+    localStorage.setItem('data', JSON.stringify(newData));
 
+    console.log(newData);
+  }
+  
   return (
     <Form className='py-5 px-3 bg-light shadow rounded' onSubmit={handleSubmit}>
       {/* Flex layout for the first two inputs */}
